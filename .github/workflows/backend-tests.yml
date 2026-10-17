@@ -59,3 +59,20 @@ jobs:
 
       - name: Run backend tests
         run: npm test
+
+      
+  docker-build:
+    name: Build Docker Images
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build backend image
+        run: docker build -t teamflow-backend:ci ./backend
+
+      - name: Build frontend image
+        run: docker build -t teamflow-frontend:ci ./frontend
+
